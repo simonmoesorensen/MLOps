@@ -1,12 +1,13 @@
 import os
-from torch import nn
+
+import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
-import matplotlib.pyplot as plt
+from sklearn.manifold import TSNE
+from torch import nn
 
 from data.make_dataset import get_data
 from models.predict_model import load_model
-from sklearn.manifold import TSNE
 
 cur_path = os.path.dirname(__file__)
 vis_path = os.path.relpath('../../reports/figures/', cur_path) + '\\'
@@ -20,7 +21,7 @@ class FeatureExtractor(nn.Module):
 
     def forward(self, x):
         x = x.view(x.shape[0], -1)
-        # It will take the input 'x' until it returns the feature vector called 'out'
+        # It will take the input 'x' until it returns the feature vector
         out = self.layers(x)
         return out
 
@@ -36,7 +37,8 @@ def tSNE(model_path):
 
     for images, labels in test_set:
         feature = feature_model(images)
-        targets = np.vstack([targets, labels.cpu().detach().numpy().reshape(labels.shape[0], 1)])
+        targets = np.vstack([targets, labels.cpu().detach().numpy().reshape(
+            labels.shape[0], 1)])
         features = np.vstack([features, feature.cpu().detach().numpy()])
 
     features = features[1:]
@@ -46,7 +48,8 @@ def tSNE(model_path):
 
     print('Plotting t-sne plot')
     x_plot = np.hstack([x_tsne, targets])
-    sns.scatterplot(x=x_plot[:, 0], y=x_plot[:, 1], hue=x_plot[:, 2], legend='full',
+    sns.scatterplot(x=x_plot[:, 0], y=x_plot[:, 1], hue=x_plot[:, 2],
+                    legend='full',
                     palette=sns.color_palette('muted'))
     plt.title('t-SNE plot for the final hidden layer (64 nodes)')
     print('Saving t-sne plot')

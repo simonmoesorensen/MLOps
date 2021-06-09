@@ -8,6 +8,7 @@ from models.model import WorldsBestModel
 cur_path = os.path.dirname(__file__)
 data_path = os.path.relpath('data', cur_path)
 
+
 def get_predictions(model_path, data):
     model = load_model(model_path)
     tensor_data = torch.tensor(data)
@@ -43,7 +44,8 @@ def load_model(model_path):
     else:
         checkpoint = torch.load(model_path, map_location=torch.device('cpu'))
 
-    model = WorldsBestModel(checkpoint['n_input'], checkpoint['n_output'], checkpoint['hidden_layers'])
+    model = WorldsBestModel(checkpoint['n_input'], checkpoint['n_output'],
+                            checkpoint['hidden_layers'])
     model.load_state_dict(checkpoint['state_dict'])
     # Evaluation mode
     model.eval()

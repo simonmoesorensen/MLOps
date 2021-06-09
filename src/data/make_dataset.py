@@ -1,13 +1,9 @@
 # -*- coding: utf-8 -*-
+import logging
 import os
 
 import click
-import logging
-from pathlib import Path
-
 import torch
-from dotenv import find_dotenv, load_dotenv
-
 from torchvision import datasets, transforms
 
 
@@ -25,9 +21,12 @@ def get_data(input_filepath, download=False, batch_size=64):
     os.chdir(cur_dir)
 
     if not download and not (
-            os.path.exists(f'{cur_dir}/{input_filepath}/MNIST/processed/test.pt') and
-            os.path.exists(f'{cur_dir}/{input_filepath}/MNIST/processed/training.pt')):
-        raise FileNotFoundError(f'Missing MNIST folder in {cur_dir}/{input_filepath}')
+            os.path.exists(
+                f'{cur_dir}/{input_filepath}/MNIST/processed/test.pt') and
+            os.path.exists(
+                f'{cur_dir}/{input_filepath}/MNIST/processed/training.pt')):
+        raise FileNotFoundError(
+            f'Missing MNIST folder in {cur_dir}/{input_filepath}')
 
     logger = logging.getLogger(__name__)
     logger.info('making final data set from raw data')
@@ -41,10 +40,12 @@ def get_data(input_filepath, download=False, batch_size=64):
                                     ])
     # Download and load the training data
     logger.info('Loading the training data')
-    train = datasets.MNIST(cur_dir + '/' + input_filepath, download=download, train=True, transform=transform)
+    train = datasets.MNIST(cur_dir + '/' + input_filepath, download=download,
+                           train=True, transform=transform)
     trainloader = torch.utils.data.DataLoader(train, batch_size, shuffle=True)
     logger.info('Loading the test data')
-    test = datasets.MNIST(cur_dir + '/' + input_filepath, download=download, train=False, transform=transform)
+    test = datasets.MNIST(cur_dir + '/' + input_filepath, download=download,
+                          train=False, transform=transform)
     testloader = torch.utils.data.DataLoader(test, batch_size, shuffle=True)
 
     return trainloader, testloader

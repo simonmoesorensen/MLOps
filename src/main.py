@@ -1,6 +1,6 @@
 from data.make_dataset import get_data
-from models.train_model import train
 from models.predict_model import evaluate, get_predictions
+from models.train_model import train
 from visualization import visualize
 
 if __name__ == '__main__':
@@ -18,9 +18,10 @@ if __name__ == '__main__':
 
     images, labels = next(iter(test_set))
 
-    predictions = get_predictions('../models/model.pth', images)
-    print('Accuracy =', (predictions == labels.view(*predictions.shape)).float().mean().item())
+    pred = get_predictions('../models/model.pth', images)
+    print('Accuracy =',
+          (pred == labels.view(*pred.shape)).float().mean().item()
+          )
 
     # Visualize
     visualize.tSNE('../models/model.pth')
-

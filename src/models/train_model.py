@@ -1,16 +1,15 @@
 import datetime
 import os
 import time
-import numpy as np
 
+import matplotlib.pyplot as plt
+import numpy as np
 import torch
 from torch import nn, optim
 from torch.utils.tensorboard import SummaryWriter
 
 from src.data.make_dataset import get_data
 from src.models.model import WorldsBestModel
-
-import matplotlib.pyplot as plt
 
 cur_path = os.path.dirname(__file__)
 data_path = os.path.relpath('data', cur_path)
@@ -71,14 +70,18 @@ def train(lr=0.003, epochs=50, model_name='model'):
             writer.add_graph(model, images)
 
             if steps % print_every == 0:
-                print("Epoch: {}/{}.. Step: {}/{}".format(e + 1, epochs, steps, len(train_set)),
-                      "Training Loss: {:.3f}.. ".format(running_loss / print_every))
+                print("Epoch: {}/{}.. Step: {}/{}".format(e + 1, epochs, steps,
+                                                          len(train_set)),
+                      "Training Loss: {:.3f}.. ".format(
+                          running_loss / print_every))
 
                 running_loss = 0
 
         if steps % print_every != 0:
-            print("Epoch: {}/{}.. Step: {}/{}".format(e + 1, epochs, steps, len(train_set)),
-                  "Training Loss: {:.3f}.. ".format(running_loss / print_every))
+            print("Epoch: {}/{}.. Step: {}/{}".format(e + 1, epochs, steps,
+                                                      len(train_set)),
+                  "Training Loss: {:.3f}.. ".format(
+                      running_loss / print_every))
 
         train_losses.append(tot_loss / len(train_set))
         steps = 0

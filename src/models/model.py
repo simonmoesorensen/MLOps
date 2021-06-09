@@ -1,5 +1,5 @@
-from torch import nn
 import torch.nn.functional as F
+from torch import nn
 
 
 class WorldsBestModel(nn.Module):
@@ -10,11 +10,13 @@ class WorldsBestModel(nn.Module):
         if not hidden_layers:
             raise ValueError(f'Expected hidden layers but got {hidden_layers}')
 
-        self.hidden_layers = nn.ModuleList([nn.Linear(n_input, hidden_layers[0])])
+        self.hidden_layers = nn.ModuleList(
+            [nn.Linear(n_input, hidden_layers[0])])
 
         # Add a variable number of more hidden layers
         layer_sizes = zip(hidden_layers[:-1], hidden_layers[1:])
-        self.hidden_layers.extend([nn.Linear(h1, h2) for h1, h2 in layer_sizes])
+        self.hidden_layers.extend(
+            [nn.Linear(h1, h2) for h1, h2 in layer_sizes])
 
         self.output = nn.Linear(hidden_layers[-1], n_output)
 
@@ -25,7 +27,9 @@ class WorldsBestModel(nn.Module):
         x = x.view(x.shape[0], -1)
 
         if int(x.shape[1]) != self.hidden_layers[0].in_features:
-            raise ValueError(f'Expected input to have shape [n, {self.hidden_layers[0].in_features}] got {x.shape}')
+            raise ValueError(
+                f'Expected input to have shape '
+                f'[n, {self.hidden_layers[0].in_features}] got {x.shape}')
 
         # Pass through hidden layers
         for layer in self.hidden_layers:

@@ -1,6 +1,6 @@
 venv/
 runs/
-figures/
+*.png
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

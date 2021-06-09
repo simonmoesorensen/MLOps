@@ -48,4 +48,3 @@ def get_data(input_filepath, download=False, batch_size=64):
     testloader = torch.utils.data.DataLoader(test, batch_size, shuffle=True)
 
     return trainloader, testloader
-

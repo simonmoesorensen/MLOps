@@ -125,8 +125,8 @@ def train(lr=0.003, epochs=50, model_name='model'):
     plt.legend(['Training set'])
 
     strftime = datetime.datetime.now().strftime('%y-%m-%d_%H%M%S')
-    path_ext = 'reports/figures/training_curve_{}.png'.format(strftime)
-    fig_path = cur_path + '../../../' + path_ext
+    path_ext = '/reports/figures/training_curve_{}.png'.format(strftime)
+    fig_path = cur_path[0:-11] + path_ext
     print(f'Saving figure @ {fig_path}')
     plt.savefig(fig_path)
 

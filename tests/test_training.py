@@ -1,5 +1,6 @@
-from models.train_model import train
 import os
+
+from src.models.train_model import train
 
 cur_dir = os.path.dirname(__file__)
 

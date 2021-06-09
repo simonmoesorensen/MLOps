@@ -1,7 +1,8 @@
 import pytest
 import torch
 
-from data.make_dataset import get_data
+from src.data.make_dataset import get_data
+
 
 def test_data():
     train, test = get_data('../../data')

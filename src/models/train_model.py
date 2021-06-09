@@ -7,8 +7,8 @@ import torch
 from torch import nn, optim
 from torch.utils.tensorboard import SummaryWriter
 
-from data.make_dataset import get_data
-from models.model import WorldsBestModel
+from src.data.make_dataset import get_data
+from src.models.model import WorldsBestModel
 
 import matplotlib.pyplot as plt
 

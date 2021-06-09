@@ -1,7 +1,7 @@
 import pytest
 import torch
 
-from models.model import WorldsBestModel
+from src.models.model import WorldsBestModel
 
 
 @pytest.mark.parametrize('input, out, layers', [(12, 4, [6]), (784, 1, [256, 64])])

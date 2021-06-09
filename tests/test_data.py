@@ -4,8 +4,9 @@ import torch
 from src.data.make_dataset import get_data
 
 
-def test_data():
-    train, test = get_data('../../data')
+@pytest.mark.parametrize('download', [True, False])
+def test_data(download):
+    train, test = get_data('../../data', download=download)
     assert len(train.dataset) == 60000
     assert len(test.dataset) == 10000
     img, lbl = next(iter(train))

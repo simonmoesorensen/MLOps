@@ -114,7 +114,7 @@ def train(lr=0.003, epochs=50, model_name='model'):
                   'hidden_layers': hidden_layers,
                   'state_dict': model.state_dict()}
 
-    full_model_pth = cur_path[0:-11] + f'\\models\\{model_name}.pth'
+    full_model_pth = cur_path[0:-11] + f'/models/{model_name}.pth'
     print(f'Saving model @ {full_model_pth}')
     torch.save(checkpoint, full_model_pth)
     print('Model saved')
